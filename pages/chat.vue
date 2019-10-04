@@ -6,7 +6,7 @@
         :key="m.id"
         :name="m.name"
         :text="m.text"
-        :owner="true"
+        :owner="m.id === user.id"
       />
     </div>
     <div class="c-form">
