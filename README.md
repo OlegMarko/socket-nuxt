@@ -1,4 +1,4 @@
-# chat-naxt
+# chat-nuxt
 
 > My perfect Nuxt.js project
 
