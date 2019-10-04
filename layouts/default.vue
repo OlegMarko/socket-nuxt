@@ -14,7 +14,7 @@
           </v-list-item-content>
 
           <v-list-item-icon>
-            <v-icon :color="u.active ? 'deep-purple accent-4' : 'grey'">mdi-message</v-icon>
+            <v-icon :color="u.id === user.id ? 'deep-purple accent-4' : 'grey'">mdi-message</v-icon>
           </v-list-item-icon>
         </v-list-item>
       </v-list>
@@ -39,20 +39,16 @@
 
   export default {
       data: () => ({
-          drawer: true,
-          users: [
-              { id: 1, active: true, name: 'Jason Oner'},
-              { id: 2, active: true, name: 'Ranee Carlson'},
-              { id: 3, name: 'Cindy Baker' },
-              { id: 4, name: 'Ali Connors' },
-          ],
+          drawer: true
       }),
-      computed: mapState(['user']),
+      computed: mapState(['user', 'users']),
       methods: {
           ...mapMutations(['clearUser']),
           exit() {
-              this.$router.push('/?message=leftChat')
-              this.clearUser()
+              this.$socket.emit('userLeft', this.user.id, () => {
+                  this.$router.push('/?message=leftChat')
+                  this.clearUser()
+              })
           }
       }
   };
